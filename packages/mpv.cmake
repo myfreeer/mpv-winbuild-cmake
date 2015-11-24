@@ -32,7 +32,6 @@ ExternalProject_Add(mpv
         --enable-static-build
         --enable-pdf-build
         --disable-manpage-build
-        --disable-debug-build
         --enable-libmpv-shared
         ${MPV_INTERNAL_PTHREADS}
         --enable-waio
