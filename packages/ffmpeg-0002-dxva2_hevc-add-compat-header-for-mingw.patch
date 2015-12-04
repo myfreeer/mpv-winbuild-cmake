@@ -1,18 +1,19 @@
-From c4f1734aaadc8c61bacb49d108c3739a449e3236 Mon Sep 17 00:00:00 2001
-From: Hendrik Leppkes <h.leppkes@gmail.com>
-Date: Sun, 21 Sep 2014 20:15:54 +0200
-Subject: [PATCH] dxva2_hevc: add compat header for mingw
+From 34ee5092e5dd1ff9a3f9a4ea5caca547213b0b74 Mon Sep 17 00:00:00 2001
+From: Martin Herkt <lachs0r@srsfckn.biz>
+Date: Fri, 4 Dec 2015 06:34:45 +0100
+Subject: [PATCH 2/2] dxva2_hevc: add compat header for mingw
 
-All patches come from http://git.1f0.de/gitweb?p=ffmpeg.git;a=summary;js=1
+All patches come from
+http://git.1f0.de/gitweb?p=ffmpeg.git;a=summary;js=1
 
 dxva2_hevc: add compat header for mingw
 hevc: add dxva2 support for main10
-
 ---
  compat/windows/dxva_hevc.h | 150 +++++++++++++++++++++++++++++++++++++++++++++
  configure                  |   5 +-
  libavcodec/dxva2_hevc.c    |   4 ++
- 3 files changed, 157 insertions(+), 2 deletions(-)
+ libavcodec/hevc.c          |  13 +++-
+ 4 files changed, 169 insertions(+), 3 deletions(-)
  create mode 100644 compat/windows/dxva_hevc.h
 
 diff --git a/compat/windows/dxva_hevc.h b/compat/windows/dxva_hevc.h
@@ -172,18 +173,18 @@ index 0000000..0229cbe
 +#pragma pack(pop)
 +#endif
 diff --git a/configure b/configure
-index 49983e4..3f87553 100755
+index 5cf86fd..f093f1d 100755
 --- a/configure
 +++ b/configure
-@@ -1872,6 +1872,7 @@
+@@ -1881,6 +1881,7 @@ TOOLCHAIN_FEATURES="
  
  TYPES_LIST="
      CONDITION_VARIABLE_Ptr
 +    DXVA_PicParams_HEVC
      socklen_t
      struct_addrinfo
-     struct_dcadec_exss_info_matrix_encoding
-@@ -2459,9 +2460,9 @@
+     struct_group_source_req
+@@ -2463,9 +2464,9 @@ h264_vdpau_hwaccel_deps="vdpau"
  h264_vdpau_hwaccel_select="h264_decoder"
  h264_videotoolbox_hwaccel_deps="videotoolbox"
  h264_videotoolbox_hwaccel_select="h264_decoder"
@@ -196,9 +197,9 @@ index 49983e4..3f87553 100755
  hevc_qsv_hwaccel_deps="libmfx"
  hevc_vaapi_hwaccel_deps="vaapi VAPictureParameterBufferHEVC"
 diff --git a/libavcodec/dxva2_hevc.c b/libavcodec/dxva2_hevc.c
-index 79d2d28..2705caa 100644
---- a/libavcodec/dxva2_hevc.c	2015-11-01 08:47:16.558480800 +0800
-+++ b/libavcodec/dxva2_hevc.c	2015-11-01 12:54:18.847974000 +0800
+index 5a312ea..a7d0f09 100644
+--- a/libavcodec/dxva2_hevc.c
++++ b/libavcodec/dxva2_hevc.c
 @@ -29,6 +29,10 @@
  // potentially newer version.
  #include "dxva2_internal.h"
@@ -211,7 +212,7 @@ index 79d2d28..2705caa 100644
  
  struct hevc_dxva2_picture_context {
 diff --git a/libavcodec/hevc.c b/libavcodec/hevc.c
-index 09043e4..9f77b2e 100644
+index fa75729..35f7b98 100644
 --- a/libavcodec/hevc.c
 +++ b/libavcodec/hevc.c
 @@ -345,7 +345,9 @@ static int set_sps(HEVCContext *s, const HEVCSPS *sps, enum AVPixelFormat pix_fm
@@ -225,7 +226,7 @@ index 09043e4..9f77b2e 100644
  #if CONFIG_HEVC_DXVA2_HWACCEL
          *fmt++ = AV_PIX_FMT_DXVA2_VLD;
  #endif
-@@ -355,6 +357,15 @@ static int set_sps(HEVCContext *s, const HEVCSPS *sps, enum AVPixelFormat pix_fm
+@@ -358,6 +360,15 @@ static int set_sps(HEVCContext *s, const HEVCSPS *sps, enum AVPixelFormat pix_fm
  #if CONFIG_HEVC_VDPAU_HWACCEL
          *fmt++ = AV_PIX_FMT_VDPAU;
  #endif
@@ -241,3 +242,6 @@ index 09043e4..9f77b2e 100644
      }
  
      if (pix_fmt == AV_PIX_FMT_NONE) {
+-- 
+2.6.3
+
