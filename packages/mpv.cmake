@@ -96,12 +96,3 @@ ExternalProject_Add_Step(mpv copy-binary
     COMMAND ${CMAKE_COMMAND} -E copy <SOURCE_DIR>/build/DOCS/man/mpv.pdf ${CMAKE_CURRENT_BINARY_DIR}/mpv-package/manual.pdf
     COMMENT "Copying mpv binaries and manual"
 )
-
-ExternalProject_Add_Step(mpv pack-binary
-    DEPENDEES copy-binary
-    COMMAND ${CMAKE_COMMAND} -E remove ../../mpv-${TARGET_CPU}-${BUILDDATE}.7z
-    COMMAND ${EXEC} 7z a -m0=lzma2 -mx=9 -ms=on ../../mpv-${TARGET_CPU}-${BUILDDATE}.7z *
-    WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/mpv-package
-    COMMENT "Packing mpv binary"
-    LOG 1
-)

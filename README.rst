@@ -45,7 +45,7 @@ all of its dependencies::
 This will take a while (about 20 minutes on my machine).
 
 .. note::
-    The mpv package has some additional steps to generate a 7zip archive ready
+    The mpv package has some additional steps to generate files ready
     for distribution instead of installing it to the prefix.
 
 .. note::
