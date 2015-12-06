@@ -1,6 +1,6 @@
-From 34ee5092e5dd1ff9a3f9a4ea5caca547213b0b74 Mon Sep 17 00:00:00 2001
+From 0a4f8dd1f41ccab2ce7a225be6c7cb470335e085 Mon Sep 17 00:00:00 2001
 From: Martin Herkt <lachs0r@srsfckn.biz>
-Date: Fri, 4 Dec 2015 06:34:45 +0100
+Date: Sun, 6 Dec 2015 08:25:44 +0100
 Subject: [PATCH 2/2] dxva2_hevc: add compat header for mingw
 
 All patches come from
@@ -173,10 +173,10 @@ index 0000000..0229cbe
 +#pragma pack(pop)
 +#endif
 diff --git a/configure b/configure
-index 5cf86fd..f093f1d 100755
+index 40c79cf..6e26ecf 100755
 --- a/configure
 +++ b/configure
-@@ -1881,6 +1881,7 @@ TOOLCHAIN_FEATURES="
+@@ -1918,6 +1918,7 @@ TOOLCHAIN_FEATURES="
  
  TYPES_LIST="
      CONDITION_VARIABLE_Ptr
@@ -184,7 +184,7 @@ index 5cf86fd..f093f1d 100755
      socklen_t
      struct_addrinfo
      struct_group_source_req
-@@ -2463,9 +2464,9 @@ h264_vdpau_hwaccel_deps="vdpau"
+@@ -2502,9 +2503,9 @@ h264_vdpau_hwaccel_deps="vdpau"
  h264_vdpau_hwaccel_select="h264_decoder"
  h264_videotoolbox_hwaccel_deps="videotoolbox"
  h264_videotoolbox_hwaccel_select="h264_decoder"
@@ -212,7 +212,7 @@ index 5a312ea..a7d0f09 100644
  
  struct hevc_dxva2_picture_context {
 diff --git a/libavcodec/hevc.c b/libavcodec/hevc.c
-index fa75729..35f7b98 100644
+index 21435da..94a6f0a 100644
 --- a/libavcodec/hevc.c
 +++ b/libavcodec/hevc.c
 @@ -345,7 +345,9 @@ static int set_sps(HEVCContext *s, const HEVCSPS *sps, enum AVPixelFormat pix_fm
