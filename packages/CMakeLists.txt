@@ -67,7 +67,6 @@ foreach(package
     gmp
     xz
     lzo
-    libressl
     uchardet
     rubberband
     libwaio
