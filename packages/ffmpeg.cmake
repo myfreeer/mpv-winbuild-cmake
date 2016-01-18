@@ -4,6 +4,7 @@ ExternalProject_Add(ffmpeg
         dcadec
         fdk-aac
         game-music-emu
+        gmp
         lame
         libass
         libbluray
