@@ -14,7 +14,6 @@ ExternalProject_Add(ffmpeg
         opencore-amr
         opus
         speex
-        theora
         vorbis
         x264
         xvidcore
@@ -51,7 +50,6 @@ ExternalProject_Add(ffmpeg
     --enable-libopencore-amrwb
     --enable-libopus
     --enable-libspeex
-    --enable-libtheora
     --enable-libvorbis
     --enable-libvpx
     --enable-libx264

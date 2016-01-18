@@ -78,7 +78,6 @@ foreach(package
     lame
     ogg
     vorbis
-    theora
     opus
     speex
     libmodplug
