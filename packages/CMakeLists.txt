@@ -81,7 +81,6 @@ foreach(package
     libmodplug
     libvpx
     xvidcore
-    fdk-aac
     game-music-emu
     libpng
     x264
