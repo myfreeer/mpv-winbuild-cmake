@@ -49,6 +49,8 @@ ExternalProject_Add(ffmpeg
     --enable-libvpx
     --enable-libx264
     --enable-libxvid
+    --enable-schannel
+    "--extra-libs='-lsecurity -lschannel'" # ffmpeg’s build system is retarded
     BUILD_COMMAND ${MAKE}
     INSTALL_COMMAND ${MAKE} install
     LOG_DOWNLOAD 1 LOG_UPDATE 1 LOG_CONFIGURE 1 LOG_BUILD 1 LOG_INSTALL 1
