@@ -1,4 +1,4 @@
-From 0a4f8dd1f41ccab2ce7a225be6c7cb470335e085 Mon Sep 17 00:00:00 2001
+From 7e2f20d006223bf32b8eb8600365aaa147e6683e Mon Sep 17 00:00:00 2001
 From: Martin Herkt <lachs0r@srsfckn.biz>
 Date: Sun, 6 Dec 2015 08:25:44 +0100
 Subject: [PATCH 2/2] dxva2_hevc: add compat header for mingw
@@ -173,10 +173,10 @@ index 0000000..0229cbe
 +#pragma pack(pop)
 +#endif
 diff --git a/configure b/configure
-index 40c79cf..6e26ecf 100755
+index 4e7a26b..d91ff75 100755
 --- a/configure
 +++ b/configure
-@@ -1918,6 +1918,7 @@ TOOLCHAIN_FEATURES="
+@@ -1923,6 +1923,7 @@ TOOLCHAIN_FEATURES="
  
  TYPES_LIST="
      CONDITION_VARIABLE_Ptr
@@ -184,7 +184,7 @@ index 40c79cf..6e26ecf 100755
      socklen_t
      struct_addrinfo
      struct_group_source_req
-@@ -2502,9 +2503,9 @@ h264_vdpau_hwaccel_deps="vdpau"
+@@ -2513,9 +2514,9 @@ h264_vdpau_hwaccel_deps="vdpau"
  h264_vdpau_hwaccel_select="h264_decoder"
  h264_videotoolbox_hwaccel_deps="videotoolbox"
  h264_videotoolbox_hwaccel_select="h264_decoder"
@@ -212,10 +212,10 @@ index 5a312ea..a7d0f09 100644
  
  struct hevc_dxva2_picture_context {
 diff --git a/libavcodec/hevc.c b/libavcodec/hevc.c
-index 21435da..94a6f0a 100644
+index c245d3b..5677f0f 100644
 --- a/libavcodec/hevc.c
 +++ b/libavcodec/hevc.c
-@@ -345,7 +345,9 @@ static int set_sps(HEVCContext *s, const HEVCSPS *sps, enum AVPixelFormat pix_fm
+@@ -346,7 +346,9 @@ static int set_sps(HEVCContext *s, const HEVCSPS *sps, enum AVPixelFormat pix_fm
  
      export_stream_params(s->avctx, &s->ps, sps);
  
@@ -226,7 +226,7 @@ index 21435da..94a6f0a 100644
  #if CONFIG_HEVC_DXVA2_HWACCEL
          *fmt++ = AV_PIX_FMT_DXVA2_VLD;
  #endif
-@@ -358,6 +360,15 @@ static int set_sps(HEVCContext *s, const HEVCSPS *sps, enum AVPixelFormat pix_fm
+@@ -359,6 +361,15 @@ static int set_sps(HEVCContext *s, const HEVCSPS *sps, enum AVPixelFormat pix_fm
  #if CONFIG_HEVC_VDPAU_HWACCEL
          *fmt++ = AV_PIX_FMT_VDPAU;
  #endif
@@ -243,5 +243,5 @@ index 21435da..94a6f0a 100644
  
      if (pix_fmt == AV_PIX_FMT_NONE) {
 -- 
-2.6.3
+2.6.4
 
