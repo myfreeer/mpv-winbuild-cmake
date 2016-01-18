@@ -16,7 +16,6 @@ ExternalProject_Add(mpv
         libiconv
         libjpeg
         libpng
-        libwaio
         luajit
         rubberband
         uchardet
@@ -35,7 +34,6 @@ ExternalProject_Add(mpv
         --enable-libmpv-shared
         ${MPV_INTERNAL_PTHREADS}
         --enable-gpl3
-        --enable-waio
         --enable-lua
         --enable-libarchive
         --enable-libass

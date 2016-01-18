@@ -69,7 +69,6 @@ foreach(package
     lzo
     uchardet
     rubberband
-    libwaio
     zlib
     bzip2
     libjpeg
