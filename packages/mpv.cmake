@@ -1,7 +1,6 @@
 if(${TARGET_CPU} MATCHES "x86_64")
     # allow HEASLR
     set(MPV_LDFLAGS "LDFLAGS=-Wl,--image-base,0x140000000,--high-entropy-va")
-    set(MPV_INTERNAL_PTHREADS "--enable-win32-internal-pthreads")
 endif()
 
 ExternalProject_Add(mpv
@@ -32,7 +31,6 @@ ExternalProject_Add(mpv
         --enable-pdf-build
         --disable-manpage-build
         --enable-libmpv-shared
-        ${MPV_INTERNAL_PTHREADS}
         --enable-gpl3
         --enable-lua
         --enable-libarchive
