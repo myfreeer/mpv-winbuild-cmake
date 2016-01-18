@@ -10,7 +10,6 @@ ExternalProject_Add(ffmpeg
         libbluray
         libmodplug
         libpng
-        libressl
         libvpx
         opencore-amr
         opus
@@ -38,6 +37,7 @@ ExternalProject_Add(ffmpeg
     --enable-avresample
     --enable-postproc
     --enable-avisynth
+    --enable-gmp
     --enable-libass
     --enable-libbluray
     --enable-libdcadec
@@ -56,7 +56,6 @@ ExternalProject_Add(ffmpeg
     --enable-libvpx
     --enable-libx264
     --enable-libxvid
-    --enable-openssl
     BUILD_COMMAND ${MAKE}
     INSTALL_COMMAND ${MAKE} install
     LOG_DOWNLOAD 1 LOG_UPDATE 1 LOG_CONFIGURE 1 LOG_BUILD 1 LOG_INSTALL 1
