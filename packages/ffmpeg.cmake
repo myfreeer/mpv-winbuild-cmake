@@ -11,7 +11,6 @@ ExternalProject_Add(ffmpeg
         libmodplug
         libpng
         libvpx
-        opencore-amr
         opus
         speex
         vorbis
@@ -46,8 +45,6 @@ ExternalProject_Add(ffmpeg
     --enable-libgme
     --enable-libmodplug
     --enable-libmp3lame
-    --enable-libopencore-amrnb
-    --enable-libopencore-amrwb
     --enable-libopus
     --enable-libspeex
     --enable-libvorbis

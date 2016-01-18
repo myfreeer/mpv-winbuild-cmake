@@ -83,7 +83,6 @@ foreach(package
     libmodplug
     libvpx
     xvidcore
-    opencore-amr
     fdk-aac
     game-music-emu
     libpng
