@@ -98,7 +98,6 @@ foreach(package
     libbluray
     harfbuzz
     libass
-    dcadec
     ffmpeg
     mpv
 )
