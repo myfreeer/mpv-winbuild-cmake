@@ -5,7 +5,6 @@ endif()
 
 ExternalProject_Add(mpv
     DEPENDS
-        angle
         ffmpeg
         fribidi
         lcms2
@@ -34,6 +33,7 @@ ExternalProject_Add(mpv
         --disable-manpage-build
         --enable-libmpv-shared
         --enable-gpl3
+        --disable-egl-angle
         --enable-lua
         --enable-libarchive
         --enable-libass
