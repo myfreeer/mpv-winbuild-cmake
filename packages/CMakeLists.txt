@@ -65,6 +65,7 @@ endfunction()
 
 foreach(package
     libsoxr
+    libzimg
     angle
     gmp
     xz
