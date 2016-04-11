@@ -8,6 +8,7 @@ ExternalProject_Add(ffmpeg
         libbluray
         libmodplug
         libpng
+        libsoxr
         libvpx
         opus
         speex
@@ -42,6 +43,7 @@ ExternalProject_Add(ffmpeg
     --enable-libmodplug
     --enable-libmp3lame
     --enable-libopus
+    --enable-libsoxr
     --enable-libspeex
     --enable-libvorbis
     --enable-libvpx
