@@ -2,15 +2,10 @@ ExternalProject_Add(angle
     DEPENDS gcc
     GIT_REPOSITORY https://chromium.googlesource.com/angle/angle
     UPDATE_COMMAND ""
-    PATCH_COMMAND ${EXEC} git am ${CMAKE_CURRENT_SOURCE_DIR}/angle-*.patch
     CONFIGURE_COMMAND ""
     BUILD_COMMAND ""
-    INSTALL_COMMAND ${MAKE}
-        CXX=${TARGET_ARCH}-g++
-        AR=${TARGET_ARCH}-ar
-        RANLIB=${TARGET_ARCH}-ranlib
-        PREFIX=${MINGW_INSTALL_PREFIX}
-        install
+    INSTALL_COMMAND ${CMAKE_COMMAND} -E copy_directory <SOURCE_DIR>/include/EGL ${MINGW_INSTALL_PREFIX}/include/EGL
+        COMMAND ${CMAKE_COMMAND} -E copy_directory <SOURCE_DIR>/include/KHR ${MINGW_INSTALL_PREFIX}/include/KHR
     BUILD_IN_SOURCE 1
     LOG_DOWNLOAD 1 LOG_UPDATE 1 LOG_CONFIGURE 1 LOG_BUILD 1 LOG_INSTALL 1
 )
