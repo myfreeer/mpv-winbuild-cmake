@@ -32,7 +32,6 @@ ExternalProject_Add(mpv
         --enable-pdf-build
         --disable-manpage-build
         --enable-libmpv-shared
-        --enable-gpl3
         --enable-encoding
         --enable-egl-angle
         --enable-lua
