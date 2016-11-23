@@ -33,7 +33,7 @@ ExternalProject_Add(mpv
         --disable-manpage-build
         --enable-libmpv-shared
         --enable-encoding
-        --enable-egl-angle
+        --enable-egl-angle-lib
         --enable-lua
         --enable-libarchive
         --enable-libass
