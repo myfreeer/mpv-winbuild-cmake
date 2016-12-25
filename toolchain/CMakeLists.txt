@@ -62,6 +62,7 @@ ExternalProject_Add(gcc-base
         --with-sysroot=${CMAKE_INSTALL_PREFIX}
         --disable-multilib
         --enable-languages=c,c++
+        --enable-threads=posix
         --disable-nls
         --disable-shared
         --disable-win32-registry
@@ -91,19 +92,10 @@ ExternalProject_Add_Step(mingw-w64-headers autoreconf
     LOG 1
 )
 
-ExternalProject_Add(gcc
-    DEPENDS mingw-w64-crt
-    SOURCE_DIR gcc-prefix/src
-    CONFIGURE_COMMAND ""
-    BUILD_COMMAND ${MAKE}
-    INSTALL_COMMAND ${MAKE} install
-    LOG_BUILD 1 LOG_INSTALL 1
-)
-
 ExternalProject_Add(winpthreads
     PREFIX mingw-w64-prefix
     SOURCE_DIR mingw-w64-prefix/src
-    DEPENDS gcc
+    DEPENDS gcc-base
     CONFIGURE_COMMAND ${EXEC} <SOURCE_DIR>/mingw-w64/mingw-w64-libraries/winpthreads/configure
         --host=${TARGET_ARCH}
         --prefix=${MINGW_INSTALL_PREFIX}
@@ -112,4 +104,13 @@ ExternalProject_Add(winpthreads
     BUILD_COMMAND ${MAKE}
     INSTALL_COMMAND ${MAKE} install
     LOG_CONFIGURE 1 LOG_BUILD 1 LOG_INSTALL 1
+)
+
+ExternalProject_Add(gcc
+    DEPENDS mingw-w64-crt winpthreads
+    SOURCE_DIR gcc-prefix/src
+    CONFIGURE_COMMAND ""
+    BUILD_COMMAND ${MAKE}
+    INSTALL_COMMAND ${MAKE} install
+    LOG_BUILD 1 LOG_INSTALL 1
 )
