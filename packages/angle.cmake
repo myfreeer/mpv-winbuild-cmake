@@ -5,8 +5,9 @@ ExternalProject_Add(angle
     PATCH_COMMAND ${EXEC} git am ${CMAKE_CURRENT_SOURCE_DIR}/angle-*.patch
     CONFIGURE_COMMAND ${CMAKE_COMMAND} -E remove_directory <SOURCE_DIR>/generated
         COMMAND gyp -Duse_ozone=0 -DOS=win -Dangle_gl_library_type=static_library
-        -Dangle_use_commit_id=1 --depth . -I gyp/common.gypi src/angle.gyp --no-parallel
-        --format=make --generator-output=generated
+        -Dangle_enable_vulkan=0
+        -Dangle_use_commit_id=1 --depth . -I gyp/common.gypi src/angle.gyp
+        --no-parallel --format=make --generator-output=generated
     BUILD_COMMAND ${MAKE} -C <SOURCE_DIR>/generated commit_id
         COMMAND ${CMAKE_COMMAND} -E copy <SOURCE_DIR>/generated/out/Debug/obj/gen/angle/id/commit.h <SOURCE_DIR>/src/id/commit.h
         COMMAND ${MAKE} -C <SOURCE_DIR>/generated
