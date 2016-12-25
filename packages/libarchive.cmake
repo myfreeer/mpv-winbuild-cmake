@@ -5,8 +5,8 @@ ExternalProject_Add(libarchive
         lzo
         xz
         zlib
-    URL "http://www.libarchive.org/downloads/libarchive-3.2.1.tar.gz"
-    URL_HASH SHA256=72ee1a4e3fd534525f13a0ba1aa7b05b203d186e0c6072a8a4738649d0b3cfd2
+    URL "http://www.libarchive.org/downloads/libarchive-3.2.2.tar.gz"
+    URL_HASH SHA256=691c194ee132d1f0f7a42541f091db811bc2e56f7107e9121be2bc8c04f1060f
     UPDATE_COMMAND ""
     CONFIGURE_COMMAND ${EXEC} <SOURCE_DIR>/configure
         --host=${TARGET_ARCH}
