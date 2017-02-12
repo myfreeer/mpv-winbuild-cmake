@@ -1,7 +1,7 @@
 ExternalProject_Add(libiconv
     DEPENDS gcc
-    URL "http://ftp.gnu.org/pub/gnu/libiconv/libiconv-1.14.tar.gz"
-    URL_MD5 e34509b1623cec449dfeb73d7ce9c6c6
+    URL "http://ftp.gnu.org/pub/gnu/libiconv/libiconv-1.15.tar.gz"
+    URL_HASH SHA256=ccf536620a45458d26ba83887a983b96827001e92a13847b45e4925cc8913178
     CONFIGURE_COMMAND ${EXEC} <SOURCE_DIR>/configure
         --host=${TARGET_ARCH}
         --prefix=${MINGW_INSTALL_PREFIX}
