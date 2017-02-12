@@ -1,4 +1,4 @@
-From 6e737353a75ba9aaf4e62948bc3ca11da1f03186 Mon Sep 17 00:00:00 2001
+From c660305ae9a98c99b856c16951abffdad2396ead Mon Sep 17 00:00:00 2001
 From: Martin Herkt <lachs0r@srsfckn.biz>
 Date: Sun, 25 Dec 2016 12:55:51 +0100
 Subject: [PATCH 2/2] -std=c++14 is required for GCC < 6
@@ -8,7 +8,7 @@ Subject: [PATCH 2/2] -std=c++14 is required for GCC < 6
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/gyp/common_defines.gypi b/gyp/common_defines.gypi
-index 72cc852..6c33b2e 100644
+index 72cc852eb..6c33b2e15 100644
 --- a/gyp/common_defines.gypi
 +++ b/gyp/common_defines.gypi
 @@ -39,7 +39,7 @@
@@ -21,5 +21,5 @@ index 72cc852..6c33b2e 100644
          '-msse2',
          '-O2',
 -- 
-2.10.2
+2.11.0
 
