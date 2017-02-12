@@ -1,7 +1,7 @@
 ExternalProject_Add(zlib
     DEPENDS gcc
-    URL "http://zlib.net/zlib-1.2.8.tar.gz"
-    URL_MD5 44d667c142d7cda120332623eab69f40
+    URL "http://zlib.net/zlib-1.2.11.tar.xz"
+    URL_HASH SHA256=4ff941449631ace0d4d203e3483be9dbc9da454084111f97ea0a2114e19bf066
     PATCH_COMMAND patch -p1 < ${CMAKE_CURRENT_SOURCE_DIR}/zlib-1-win32-static.patch
     CONFIGURE_COMMAND ${EXEC} CHOST=${TARGET_ARCH} <SOURCE_DIR>/configure
         --prefix=${MINGW_INSTALL_PREFIX}
