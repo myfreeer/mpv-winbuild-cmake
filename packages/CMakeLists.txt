@@ -98,6 +98,7 @@ foreach(package
     expat
     libarchive
     freetype2
+    sdl2_ttf
     libbluray
     harfbuzz
     libass
