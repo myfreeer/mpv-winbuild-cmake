@@ -91,6 +91,7 @@ foreach(package
     libdvdread
     libdvdnav
     libiconv
+    sdl2
     luajit
     openal-soft
     fribidi
