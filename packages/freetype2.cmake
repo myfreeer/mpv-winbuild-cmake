@@ -1,7 +1,7 @@
 configure_file(${CMAKE_CURRENT_SOURCE_DIR}/ft2exec.in ${CMAKE_CURRENT_BINARY_DIR}/ft2exec)
 
 ExternalProject_Add(freetype2
-    DEPENDS libpng zlib
+    DEPENDS zlib
     GIT_REPOSITORY "git://git.sv.gnu.org/freetype/freetype2.git"
     UPDATE_COMMAND ""
     CONFIGURE_COMMAND ${CMAKE_CURRENT_BINARY_DIR}/ft2exec <SOURCE_DIR>/configure
@@ -10,6 +10,7 @@ ExternalProject_Add(freetype2
         --prefix=${MINGW_INSTALL_PREFIX}
         --disable-shared
         --without-harfbuzz
+        --without-png
         --with-sysroot=${MINGW_INSTALL_PREFIX}
     BUILD_COMMAND ${MAKE}
     INSTALL_COMMAND ${MAKE} install
