@@ -1,4 +1,4 @@
-From c660305ae9a98c99b856c16951abffdad2396ead Mon Sep 17 00:00:00 2001
+From 55129161b3ababbfc0188baa2b034a01fc78fd64 Mon Sep 17 00:00:00 2001
 From: Martin Herkt <lachs0r@srsfckn.biz>
 Date: Sun, 25 Dec 2016 12:55:51 +0100
 Subject: [PATCH 2/2] -std=c++14 is required for GCC < 6

@@ -1,30 +1,29 @@
-From eb3c21dcd37d5ea0e0453c83bac2aa9398e61370 Mon Sep 17 00:00:00 2001
+From dc17347c9e3515a18e12348c0b64ffb63a438523 Mon Sep 17 00:00:00 2001
 From: Martin Herkt <lachs0r@srsfckn.biz>
 Date: Sun, 12 Feb 2017 01:37:08 +0100
 Subject: [PATCH 1/2] Cross compile hacks for mpv
 
 ---
- Makefile                | 51 +++++++++++++++++++++++++++++++++++++++++++++++++
+ Makefile                | 50 +++++++++++++++++++++++++++++++++++++++++++++++++
  gyp/common_defines.gypi | 11 +++++++++++
  libEGL.pc.in            | 10 ++++++++++
  move-libs.sh            | 28 +++++++++++++++++++++++++++
- src/angle.gyp           | 41 +--------------------------------------
+ src/angle.gyp           | 41 +---------------------------------------
  src/commit_id.py        |  4 ++--
  src/libGLESv2.gypi      |  8 --------
- 7 files changed, 103 insertions(+), 50 deletions(-)
+ 7 files changed, 102 insertions(+), 50 deletions(-)
  create mode 100644 Makefile
  create mode 100644 libEGL.pc.in
  create mode 100755 move-libs.sh
 
 diff --git a/Makefile b/Makefile
 new file mode 100644
-index 000000000..512ff4b4a
+index 000000000..2bd342d3a
 --- /dev/null
 +++ b/Makefile
-@@ -0,0 +1,51 @@
+@@ -0,0 +1,50 @@
 +VERSION = 0.0.0
 +INSTALL ?= install
-+SHELL ?= /bin/bash
 +PREFIX ?= /usr/local
 +BINDIR ?= $(PREFIX)/bin
 +LIBDIR ?= $(PREFIX)/lib
@@ -45,7 +44,7 @@ index 000000000..512ff4b4a
 +	sed 's,%PREFIX%,$(PREFIX),;s,%LIBDIR%,$(LIBDIR),;s,%INCLUDEDIR%,$(INCLUDEDIR),;s,%VERSION%,$(VERSION),' $< > $@
 +
 +install: $(TARGET) libEGL.pc
-+	$(INSTALL) -d $(INCLUDEDIR)/{EGL,GLES{2,3},GLSLANG,KHR,platform}
++	$(INSTALL) -d $(INCLUDEDIR)/EGL $(INCLUDEDIR)/GLES2 $(INCLUDEDIR)/GLES3 $(INCLUDEDIR)/GLSLANG $(INCLUDEDIR)/KHR $(INCLUDEDIR)/platform
 +	$(INSTALL) -d $(BINDIR)
 +	$(INSTALL) -d $(LIBDIR)
 +	$(INSTALL) -d $(LIBDIR)/pkgconfig
@@ -60,11 +59,11 @@ index 000000000..512ff4b4a
 +	$(INSTALL) -m 644 libEGL.a libGLESv2.a $(LIBDIR)
 +
 +uninstall:
-+	-rm -f $(BINDIR)/lib{EGL,GLESv2}.dll
-+	-rm -f $(LIBDIR)/lib{EGL,GLESv2}.dll.a
-+	-rm -f $(LIBDIR)/lib{EGL,GLESv2}.a
++	-rm -f $(BINDIR)/libEGL.dll $(BINDIR)/libGLESv2.dll
++	-rm -f $(LIBDIR)/libEGL.dll.a $(LIBDIR)/libGLESv2.dll.a
++	-rm -f $(LIBDIR)/libEGL.a $(LIBDIR)/libGLESv2.a
 +	-rm -f $(LIBDIR)/pkgconfig/libEGL.pc
-+	-rm -rf $(INCLUDEDIR)/{EGL,GLES{2,3},GLSLANG,KHR}
++	-rm -rf $(INCLUDEDIR)/EGL $(INCLUDEDIR)/GLES2 $(INCLUDEDIR)/GLES3 $(INCLUDEDIR)/GLSLANG $(INCLUDEDIR)/KHR
 +	-rm -f $(INCLUDEDIR)/platform/Platform.h
 +	-rm -f $(INCLUDEDIR)/angle_gl.h
 +.PHONY: uninstall
