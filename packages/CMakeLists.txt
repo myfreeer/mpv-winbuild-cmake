@@ -85,6 +85,8 @@ foreach(package
     libvpx
     xvidcore
     game-music-emu
+    libgpg_error
+    libgcrypt
     libpng
     x264
     libdvdcss
