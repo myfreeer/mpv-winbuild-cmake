@@ -1,6 +1,6 @@
-From 8b4387e4d4e09c5988cbde106fe91482b3b7adc0 Mon Sep 17 00:00:00 2001
+From 2fc97952a71dcfff489af7ba23243012d3ac5849 Mon Sep 17 00:00:00 2001
 From: Martin Herkt <lachs0r@srsfckn.biz>
-Date: Mon, 29 Feb 2016 01:46:12 +0100
+Date: Sat, 22 Apr 2017 05:50:15 +0200
 Subject: [PATCH] Use pkg-config for more external libs
 
 ---
@@ -8,19 +8,19 @@ Subject: [PATCH] Use pkg-config for more external libs
  1 file changed, 2 insertions(+), 2 deletions(-)
 
 diff --git a/configure b/configure
-index f28aa8f..181bdb1 100755
+index 758607b502..ebccd0e01d 100755
 --- a/configure
 +++ b/configure
-@@ -5553,7 +5553,7 @@ enabled fontconfig        && enable libfontconfig
+@@ -5764,7 +5764,7 @@ enabled fontconfig        && enable libfontconfig
  enabled libfontconfig     && require_pkg_config fontconfig "fontconfig/fontconfig.h" FcInit
- enabled libfreetype       && require_libfreetype
+ enabled libfreetype       && require_pkg_config freetype2 "ft2build.h FT_FREETYPE_H" FT_Init_FreeType
  enabled libfribidi        && require_pkg_config fribidi fribidi.h fribidi_version_info
 -enabled libgme            && require  libgme gme/gme.h gme_new_emu -lgme -lstdc++
 +enabled libgme            && require_pkg_config  libgme gme/gme.h gme_new_emu
  enabled libgsm            && { for gsm_hdr in "gsm.h" "gsm/gsm.h"; do
                                     check_lib "${gsm_hdr}" gsm_create -lgsm && break;
                                 done || die "ERROR: libgsm not found"; }
-@@ -5596,7 +5596,7 @@ enabled libutvideo        && require_cpp utvideo "stdint.h stdlib.h utvideo/utvi
+@@ -5809,7 +5809,7 @@ enabled libtwolame        && require libtwolame twolame.h twolame_init -ltwolame
  enabled libv4l2           && require_pkg_config libv4l2 libv4l2.h v4l2_ioctl
  enabled libvidstab        && require_pkg_config "vidstab >= 0.98" vid.stab/libvidstab.h vsMotionDetectInit
  enabled libvo_amrwbenc    && require libvo_amrwbenc vo-amrwbenc/enc_if.h E_IF_init -lvo-amrwbenc
@@ -30,5 +30,5 @@ index f28aa8f..181bdb1 100755
  enabled libvpx            && {
      enabled libvpx_vp8_decoder && {
 -- 
-2.7.0
+2.12.2
 
