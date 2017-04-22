@@ -93,5 +93,12 @@ ExternalProject_Add_Step(mpv copy-binary
 
     COMMAND ${CMAKE_COMMAND} -E copy <SOURCE_DIR>/build/mpv.com ${CMAKE_CURRENT_BINARY_DIR}/mpv-package/mpv.com
     COMMAND ${CMAKE_COMMAND} -E copy <SOURCE_DIR>/build/DOCS/man/mpv.pdf ${CMAKE_CURRENT_BINARY_DIR}/mpv-package/manual.pdf
+
+    COMMAND ${CMAKE_COMMAND} -E copy ${MINGW_INSTALL_PREFIX}/bin/libaacs-0.dll ${CMAKE_CURRENT_BINARY_DIR}/mpv-package/libaacs.dll
+    COMMAND ${CMAKE_COMMAND} -E copy ${MINGW_INSTALL_PREFIX}/bin/libbdplus-0.dll ${CMAKE_CURRENT_BINARY_DIR}/mpv-package/libbdplus.dll
+    COMMAND ${EXEC} ${TARGET_ARCH}-strip -g ${CMAKE_CURRENT_BINARY_DIR}/mpv-package/libaacs.dll
+    COMMAND ${EXEC} ${TARGET_ARCH}-strip -g ${CMAKE_CURRENT_BINARY_DIR}/mpv-package/libbdplus.dll
+    COMMAND ${EXEC} ${TARGET_ARCH}-objcopy --only-keep-debug ${MINGW_INSTALL_PREFIX}/bin/libaacs-0.dll ${CMAKE_CURRENT_BINARY_DIR}/mpv-dev/libaacs.dll.debug
+    COMMAND ${EXEC} ${TARGET_ARCH}-objcopy --only-keep-debug ${MINGW_INSTALL_PREFIX}/bin/libbdplus-0.dll ${CMAKE_CURRENT_BINARY_DIR}/mpv-dev/libbdplus.dll.debug
     COMMENT "Copying mpv binaries and manual"
 )

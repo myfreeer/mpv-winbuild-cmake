@@ -101,6 +101,8 @@ foreach(package
     libarchive
     freetype2
     sdl2_ttf
+    libaacs
+    libbdplus
     libbluray
     harfbuzz
     libass
