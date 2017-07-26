@@ -1,7 +1,7 @@
 ExternalProject_Add(libmodplug
     DEPENDS gcc
-    URL "http://download.sourceforge.net/modplug-xmms/libmodplug-0.8.8.4.tar.gz"
-    URL_MD5 fddc3c704c5489de2a3cf0fedfec59db
+    URL "http://download.sourceforge.net/modplug-xmms/libmodplug-0.8.9.0.tar.gz"
+    URL_HASH SHA256=457ca5a6c179656d66c01505c0d95fafaead4329b9dbaa0f997d00a3508ad9de
     CONFIGURE_COMMAND ${EXEC} <SOURCE_DIR>/configure
         --host=${TARGET_ARCH}
         --prefix=${MINGW_INSTALL_PREFIX}
