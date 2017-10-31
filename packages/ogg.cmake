@@ -11,6 +11,5 @@ ExternalProject_Add(ogg
     LOG_DOWNLOAD 1 LOG_UPDATE 1 LOG_CONFIGURE 1 LOG_BUILD 1 LOG_INSTALL 1
 )
 
-clean_build_dir(ogg)
-force_rebuild(ogg)
+extra_step(ogg)
 autoreconf(ogg)

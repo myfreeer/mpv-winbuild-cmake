@@ -20,9 +20,8 @@ ExternalProject_Add(ffmpeg
     #GIT_REPOSITORY git://git.videolan.org/ffmpeg.git
     GIT_REPOSITORY git://repo.or.cz/ffmpeg.git
     GIT_SHALLOW 1
-    DOWNLOAD_NAME "ffmpeg"
     UPDATE_COMMAND ""
-    PATCH_COMMAND ${EXEC} git am ${CMAKE_CURRENT_SOURCE_DIR}/ffmpeg-*.patch
+    PATCH_COMMAND ${EXEC} git apply --index ${CMAKE_CURRENT_SOURCE_DIR}/ffmpeg-patches/ffmpeg-*.patch
     CONFIGURE_COMMAND ${EXEC} <SOURCE_DIR>/configure
     --cross-prefix=${TARGET_ARCH}-
     --prefix=${MINGW_INSTALL_PREFIX}
@@ -57,6 +56,7 @@ ExternalProject_Add(ffmpeg
     --enable-schannel
     --enable-cuda
     --enable-cuvid
+    --disable-w32threads
     "--extra-libs='-lsecurity -lschannel'" # ffmpeg’s build system is retarded
     "--extra-cflags=-DMODPLUG_STATIC"
     BUILD_COMMAND ${MAKE}
@@ -64,5 +64,5 @@ ExternalProject_Add(ffmpeg
     LOG_DOWNLOAD 1 LOG_UPDATE 1 LOG_CONFIGURE 1 LOG_BUILD 1 LOG_INSTALL 1
 )
 
-clean_build_dir(ffmpeg)
 force_rebuild_git(ffmpeg)
+extra_step(ffmpeg)

@@ -15,6 +15,6 @@ ExternalProject_Add(opus-tools
     LOG_DOWNLOAD 1 LOG_UPDATE 1 LOG_CONFIGURE 1 LOG_BUILD 1 LOG_INSTALL 1
 )
 
-clean_build_dir(opus-tools)
 force_rebuild_git(opus-tools)
+extra_step(opus-tools)
 autogen(opus-tools)

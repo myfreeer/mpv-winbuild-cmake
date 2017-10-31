@@ -6,7 +6,6 @@ ExternalProject_Add(freetype2
     GIT_REPOSITORY http://git.sv.nongnu.org/r/freetype/freetype2.git
     GIT_SHALLOW 1
     UPDATE_COMMAND ""
-    PATCH_COMMAND ${EXEC} git am ${CMAKE_CURRENT_SOURCE_DIR}/freetype2-*.patch
     CONFIGURE_COMMAND ${CMAKE_CURRENT_BINARY_DIR}/ft2exec <SOURCE_DIR>/configure
         --build=${HOST_ARCH}
         --host=${TARGET_ARCH}
@@ -20,6 +19,6 @@ ExternalProject_Add(freetype2
     LOG_DOWNLOAD 1 LOG_UPDATE 1 LOG_CONFIGURE 1 LOG_BUILD 1 LOG_INSTALL 1
 )
 
-clean_build_dir(freetype2)
 force_rebuild_git(freetype2)
+extra_step(freetype2)
 autogen(freetype2)

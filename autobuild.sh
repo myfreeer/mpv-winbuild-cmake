@@ -1,21 +1,85 @@
 #!/bin/bash
 # Automatically build mpv for 32-bit and 64-bit version
 
-mkdir -p ./build32
-cd ./build32
-cmake -DTARGET_ARCH=i686-w64-mingw32 -G Ninja ..
-ninja mpv
-cd ..
+main() {
+    prepare
+    if [ "$1" == "32" ]; then
+        package "32" "i686"
+    elif [ "$1" == "64" ]; then
+        package "64" "x86_64"
+    else [ "$1" == "all" ];
+        package "32" "i686"
+        package "64" "x86_64"
+    fi
+    rm -rf ./release/mpv-packaging-master
+}
 
-if [ -d ./build32/mpv-i686* ] ; then
-    echo "Successfully compiled 32-bit. Continue"
-else
-    echo "Failed compiled 32-bit. Stop"
-    exit
-fi
+package() {
+    local bit=$1
+    local arch=$2
 
-mkdir -p ./build64
-cd ./build64
-cmake -DTARGET_ARCH=x86_64-w64-mingw32 -G Ninja ..
-ninja mpv
-cd ..
+    build $bit $arch
+    zip $bit $arch
+}
+
+build() {
+    local bit=$1
+    local arch=$2
+    mkdir -p ./build$bit
+    cd ./build$bit
+    cmake -DTARGET_ARCH=$arch-w64-mingw32 -G Ninja ..
+    ninja clean
+    ninja mpv
+    cd ..
+
+    if [ -d ./build$bit/mpv-$arch* ] ; then
+        echo "Successfully compiled $bit-bit. Continue"
+    else
+        echo "Failed compiled $bit-bit. Stop"
+        exit
+    fi
+}
+
+zip() {
+    local bit=$1
+    local arch=$2
+
+    mv ./build$bit/mpv-* ./release
+    cd ./release/mpv-packaging-master
+    cp -r ./mpv-root/* ./$arch/d3dcompiler_43.dll ../mpv-$arch*
+    cd ..
+    for dir in ./mpv*$arch*; do
+        if [ -d $dir ]; then
+            7z a -m0=lzma2 -mx=9 -ms=on $dir.7z $dir/*
+            rm -rf $dir
+        fi
+    done
+    cd ..
+}
+
+download_mpv_package() {
+    local package_url="https://codeload.github.com/shinchiro/mpv-packaging/zip/master"
+    if [ -e mpv-packaging.zip ]; then
+        echo "Package exists. Check if it is newer.."
+        remote_commit=$(curl -sI $package_url | grep -Po 'ETag: "\K[^"]+')
+        local_commit=$(unzip -z mpv-packaging.zip | tail +2)
+        if [ "$remote_commit" != "$local_commit" ]; then
+            wget -O mpv-packaging.zip $package_url
+        fi
+    else
+        wget -O mpv-packaging.zip $package_url
+    fi
+    unzip -o mpv-packaging.zip
+}
+
+prepare() {
+    mkdir -p ./release
+    cd ./release
+    download_mpv_package
+    cd ./mpv-packaging-master
+    7z x -y ./d3dcompiler*.7z
+    7z x -y ./vulkan*.7z
+    cd ../..
+}
+
+main $1

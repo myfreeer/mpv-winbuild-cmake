@@ -5,15 +5,13 @@ else()
 endif()
 
 ExternalProject_Add(angle
-    DEPENDS
-        ffmpeg
     GIT_REPOSITORY https://chromium.googlesource.com/angle/angle
     GIT_SHALLOW 1
     UPDATE_COMMAND ""
     PATCH_COMMAND ${EXEC} git am ${CMAKE_CURRENT_SOURCE_DIR}/angle-*.patch
     CONFIGURE_COMMAND gyp -Duse_ozone=0 -DOS=win -Dangle_gl_library_type=static_library
         -Dangle_use_commit_id=1 --depth . -I gyp/common.gypi src/angle.gyp --no-parallel
-        --format=make --generator-output=generated -Dangle_enable_vulkan=0 -Dtarget_cpu=${target}
+        --format=make --generator-output=build -Dangle_enable_vulkan=0 -Dtarget_cpu=${target}
     BUILD_COMMAND ""
     INSTALL_COMMAND ${MAKE}
         PREFIX=${MINGW_INSTALL_PREFIX}
@@ -24,19 +22,19 @@ ExternalProject_Add(angle
 
 ExternalProject_Add_Step(angle make-commitid
     DEPENDEES configure
-    WORKING_DIRECTORY <SOURCE_DIR>/generated
+    WORKING_DIRECTORY <SOURCE_DIR>/build
     COMMAND ${MAKE} commit_id
     LOG 1
 )
 
 ExternalProject_Add_Step(angle copy-commitid
     DEPENDEES make-commitid
-    COMMAND ${CMAKE_COMMAND} -E copy <SOURCE_DIR>/generated/out/Debug/obj/gen/angle/id/commit.h <SOURCE_DIR>/src/id/commit.h
+    COMMAND ${CMAKE_COMMAND} -E copy <SOURCE_DIR>/build/out/Debug/obj/gen/angle/id/commit.h <SOURCE_DIR>/src/id/commit.h
 )
 
 ExternalProject_Add_Step(angle make-all
     DEPENDEES copy-commitid
-    WORKING_DIRECTORY <SOURCE_DIR>/generated
+    WORKING_DIRECTORY <SOURCE_DIR>/build
     COMMAND ${MAKE}
         CXX=${TARGET_ARCH}-g++
         AR=${TARGET_ARCH}-ar
@@ -51,12 +49,8 @@ ExternalProject_Add_Step(angle move-libs
     COMMAND ${EXEC} <SOURCE_DIR>/move-libs.sh ${TARGET_ARCH}
 )
 
-ExternalProject_Add_Step(angle clean-buildfiles
-   DEPENDEES move-libs
-   COMMAND rm -R <SOURCE_DIR>/generated
-)
-
 force_rebuild_git(angle)
+extra_step(angle)
 
 # This is too confusing
 # DEPENDEES: Steps on which this step depends

@@ -48,20 +48,24 @@ Alternatively, you can download the builds from [here](https://sourceforge.net/p
     - flac
     - opus-tools
     - vapoursynth
+    - mujs
+    - libarchive
+    - libjpeg
+    - shaderc
+    - vulkan
+    - crossc
 
 - Zip
-    - expat (2.2.0)
+    - expat (2.2.4)
     - bzip (1.0.6)
     - zlib (1.2.11)
     - xvidcore (1.3.4)
     - vorbis (1.3.5)
-    - speex (1.2rc2)
+    - speex (1.2.0)
     - ogg (1.3.2)
     - lzo (2.10)
-    - libmodplug (0.8.8.5)
-    - libjpeg (1.5.1)
+    - libmodplug (0.8.9.0)
     - libiconv (1.15)
-    - libarchive (3.3.1)
     - gmp (6.1.2)
     - fribidi (0.19.7)
 
@@ -71,13 +75,11 @@ Alternatively, you can download the builds from [here](https://sourceforge.net/p
 
 These packages need to be installed first before compiling mpv:
 
-    pacman -S git mercurial ninja cmake ragel yasm asciidoc enca gperf p7zip gcc-multilib python2-pip python-docutils python2-rst2pdf python2-lxml python2-pillow
-
-* `gyp` package need to be installed from AUR repository.
+    pacman -S git gyp mercurial ninja cmake ragel yasm nasm asciidoc enca gperf unzip p7zip gcc-multilib python2-pip python-docutils python2-rst2pdf python2-lxml python2-pillow
 
 ### Ubuntu Linux / WSL (Windows 10)
 
-    apt-get install build-essential checkinstall bison flex gettext git mercurial subversion ninja-build gyp cmake yasm automake pkg-config libtool libtool-bin gcc-multilib g++-multilib libgmp-dev libmpfr-dev libmpc-dev libgcrypt-dev gperf ragel texinfo autopoint re2c asciidoc python-docutils rst2pdf docbook2x
+    apt-get install build-essential checkinstall bison flex gettext git mercurial subversion ninja-build gyp cmake yasm nasm automake pkg-config libtool libtool-bin gcc-multilib g++-multilib libgmp-dev libmpfr-dev libmpc-dev libgcrypt-dev gperf ragel texinfo autopoint re2c asciidoc python-docutils rst2pdf docbook2x unzip p7zip-full
 
 **Note:**
 
@@ -90,7 +92,7 @@ These packages need to be installed first before compiling mpv:
 
 Download Cygwin installer and run:
 
-    setup-x86_64.exe -R "C:\cygwin64" -q --packages="bash,binutils,bzip2,cygwin,gcc-core,gcc-g++,cygwin32-gcc-core,cygwin32-gcc-g++,gzip,m4,pkg-config,make,unzip,zip,diffutils,wget,git,patch,cmake,gperf,yasm,enca,asciidoc,bison,flex,gettext-devel,mercurial,python-devel,python-docutils,docbook2X,texinfo,libmpfr-devel,libgmp-devel,libmpc-devel,libtool,autoconf2.5,automake,automake1.9,libxml2-devel,libxslt-devel"
+    setup-x86_64.exe -R "C:\cygwin64" -q --packages="bash,binutils,bzip2,cygwin,gcc-core,gcc-g++,cygwin32-gcc-core,cygwin32-gcc-g++,gzip,m4,pkg-config,make,unzip,zip,diffutils,wget,git,patch,cmake,gperf,yasm,nasm,enca,asciidoc,bison,flex,gettext-devel,mercurial,python-devel,python-docutils,docbook2X,texinfo,libmpfr-devel,libgmp-devel,libmpc-devel,libtool,autoconf2.5,automake,automake1.9,libxml2-devel,libxslt-devel"
 
 Additionally, some packages, `re2c`, `ninja`, `ragel`, `gyp`, `rst2pdf` need to be [installed manually](https://gist.github.com/shinchiro/705b0afcc7b6c0accffba1bedb067abf).
 
@@ -101,7 +103,7 @@ Don't use `MSYS2 MinGW 32-bit` or `MSYS2 MinGW 64-bit` shortcuts, that's importa
 
 These packages need to be installed first before compiling mpv:
 
-    pacman -S base-devel cmake gcc yasm git mercurial subversion gyp tar gmp-devel mpc-devel mpfr-devel python zlib-devel unzip zip
+    pacman -S base-devel cmake gcc yasm nasm git mercurial subversion gyp tar gmp-devel mpc-devel mpfr-devel python zlib-devel unzip zip p7zip
 
 Don't install anything from the `mingw32` and `mingw64` repositories,
 it's better to completely disable them in `/etc/pacman.conf` just to be safe.
@@ -109,12 +111,12 @@ it's better to completely disable them in `/etc/pacman.conf` just to be safe.
 Additionally, some packages, `re2c`, `ninja`, `ragel`, `libjpeg`, `rst2pdf` need to be [installed manually](https://gist.github.com/shinchiro/705b0afcc7b6c0accffba1bedb067abf).
 
 
-## Building Software
+## Building Software (First Time)
 
 To set up the build environment, create a directory to store build files in:
 
-    mkdir build-64
-    cd build-64
+    mkdir build64
+    cd build64
 
 Once you’ve changed into that directory, run CMake, e.g.
 
@@ -133,3 +135,29 @@ After it done, you're ready to build mpv and all its dependencies:
     ninja mpv
 
 This will take a while (about ~10 minutes on my machine).
+
+The final `build64` folder's size will be around ~3GB.
+
+## Building Software (Second Time)
+
+To build mpv for a second time, clean all packages' stamp files:
+
+    ninja clean
+
+After that, build mpv as usual:
+
+    ninja mpv
+
+This will also build all packages that `mpv` depends on.
+
+## Available Commands
+
+* **ninja package** -> compile a package
+
+* **ninja clean** -> remove all stamp files in all packages.
+
+* **ninja package-fullclean** -> Remove all stamp files of a package.
+
+* **ninja package-liteclean** -> Remove build, clean stamp files only. This will skip re-configure in next running `ninja package` (after first time compile). Updating repo or patching need to do manually. Ideally, all `DEPENDS` target in `package.cmake` should be temporarily commented or deleted. Might be useful in some case.
+
+`package` is package's name found in `packages` folder.

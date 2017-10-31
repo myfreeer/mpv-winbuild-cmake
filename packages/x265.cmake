@@ -95,13 +95,8 @@ ExternalProject_Add_Step(x265 combine-libs
     COMMAND libtool --mode=link g++ -static -o libx265.a libx265_main.a libx265_main10.a libx265_main12.a
 )
 
-force_rebuild(x265-12bit)
-force_rebuild(x265-10bit)
-force_rebuild(x265)
-force_rebuild_hg(x265-base)
-force_rebuild(x265-10bit-single)
-
-clean_build_dir(x265-12bit)
-clean_build_dir(x265-10bit)
-clean_build_dir(x265)
-clean_build_dir(x265-10bit-single)
+extra_step(x265-12bit)
+extra_step(x265-10bit)
+extra_step(x265)
+extra_step(x265-base)
+extra_step(x265-10bit-single)

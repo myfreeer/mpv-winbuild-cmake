@@ -2,5 +2,5 @@
 set -e
 
 for i in $(cat debian/patches/series); do
-    git apply "debian/patches/$i"
+    patch -p1 < "debian/patches/$i"
 done
